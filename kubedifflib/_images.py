@@ -25,7 +25,10 @@ def load_config(*paths):
       continue
     with open(filename, 'r') as stream:
       data = yaml.load(stream)
-    kube_obj = KubeObject.from_dict(data)
+    try:
+      kube_obj = KubeObject.from_dict(data)
+    except KeyError:
+      continue
     objects[kube_obj] = data
   return objects
 

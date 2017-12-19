@@ -146,7 +146,10 @@ def check_file(printer, path, kubeconfig=None):
 
     differences = 0
     for data in expected:
-      kube_obj = KubeObject.from_dict(data)
+      try:
+        kube_obj = KubeObject.from_dict(data)
+      except KeyError:
+        continue
 
       printer.add(path, kube_obj)
 
